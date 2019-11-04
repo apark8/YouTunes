@@ -1,0 +1,38 @@
+body {
+    background-color: rgb(255, 234, 234);
+    font-family: "Courier";
+}
+
+.sidenav {
+    height: 100%;
+    width: 130px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgb(255, 196, 196);
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+.sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: rgb(255, 118, 118);
+    display: block;
+}
+
+.sidenav a:hover {
+    color: rgb(255, 255, 255);
+}
+
+.box {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin: 4px;
+    display: inline-block;
+}
+
+.red{ background-color: red}
