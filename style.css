@@ -21,18 +21,17 @@ body {
     font-size: 20px;
     color: rgb(255, 118, 118);
     display: block;
+    
 }
 
 .sidenav a:hover {
     color: rgb(255, 255, 255);
 }
 
-.box {
-    position: relative;
-    width: 100px;
-    height: 100px;
-    margin: 4px;
-    display: inline-block;
+.page {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    padding: 0px 0px 0px 130px;
+    border: none;
 }
-
-.red{ background-color: red}

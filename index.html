@@ -7,11 +7,15 @@
 </head>
 
 <body>
+    <script src="node_modules/animejs/lib/anime.min.js"></script>
+    <script src="animations.js"></script>
+
     <div class="sidenav">
-        <a href="help.html">Help</a>
-        <a href="playlist.html">Playlist</a>
+        <a onclick="changePage('help.html')">Help</a>
+        <a onclick="changePage('playlist.html')">Playlist</a>
+        <a onclick="changePage('converter.html')">Converter</a>
     </div>
 
-    <script src="animation.js"></script>
+    <iframe class="page" src="converter.html"></iframe>
 </body>
 </html>
