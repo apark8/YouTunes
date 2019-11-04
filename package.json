@@ -1,5 +1,8 @@
 {
-  "name": "electron-hello-world",
+  "name": "youtunes",
   "version": "0.1.0",
-  "main": "main.js"
+  "main": "main.js",
+  "dependencies": {
+    "anime": "^0.1.2"
+  }
 }
