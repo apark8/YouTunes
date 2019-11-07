@@ -14,8 +14,8 @@ function changePage(destination) {
         })
         .add({
             targets: 'div.sidenav',
-            translateX: (window.innerWidth - document.getElementById('mainnav').offsetWidth) / 2,
-            scaleX: window.innerWidth / document.getElementById('mainnav').offsetWidth,
+            translateY: -((window.innerHeight - document.getElementById('mainnav').offsetHeight) / 2),
+            scaleY: window.innerHeight / document.getElementById('mainnav').offsetHeight,
             duration: 750
         })
 
@@ -29,8 +29,8 @@ function changePage(destination) {
         animation
             .add({
                 targets: 'div.sidenav',
-                translateX: 0,
-                scaleX: 1,
+                translateY: 0,
+                scaleY: 1,
                 duration: 750
             })
             .add({

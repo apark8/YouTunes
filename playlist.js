@@ -1,8 +1,10 @@
 const anime = parent.require('animejs');
 const fs = parent.require('fs');
 
-function movePlayButton() {
-    const SPEED = 300;
+let currentSong = null;
+
+function scalePlayButtons(scale) {
+    const SPEED = 200;
     playButtons = document.getElementsByClassName('btn play');
     var animation = anime.timeline({
         easing: 'easeOutExpo',
@@ -11,7 +13,7 @@ function movePlayButton() {
     for (var i = 0; i < playButtons.length; i++) {
         animation.add({
             targets: playButtons[i],
-            scale: 0,
+            scale: scale,
             duration: SPEED
         }, i * SPEED);
     }
@@ -20,7 +22,17 @@ function movePlayButton() {
 function play(path) {
     var audio = new Audio(path);
     audio.play();
-    movePlayButton();
+    scalePlayButtons(0);
+
+    currentSong = {
+        audio: audio,
+        path: path
+    }
+}
+
+function pause() {
+    currentSong.audio.pause();
+    scalePlayButtons(1);
 }
 
 //get files in playlist
