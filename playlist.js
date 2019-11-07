@@ -1,28 +1,17 @@
 const anime = parent.require('animejs');
 const fs = parent.require('fs');
+const { scaleButtons } = parent.require('./animations.js');
 
 let currentSong = null;
-
-function scalePlayButtons(scale) {
-    const SPEED = 200;
-    playButtons = document.getElementsByClassName('btn play');
-    var animation = anime.timeline({
-        easing: 'easeOutExpo',
-        duration: playButtons.length * SPEED
-    })
-    for (var i = 0; i < playButtons.length; i++) {
-        animation.add({
-            targets: playButtons[i],
-            scale: scale,
-            duration: SPEED
-        }, i * SPEED);
-    }
-}
 
 function play(path) {
     var audio = new Audio(path);
     audio.play();
-    scalePlayButtons(0);
+
+    var playButtons = document.getElementsByClassName('btn play');
+    var pauseButton = document.getElementsByClassName('btn pause');
+    scaleButtons(0, playButtons);
+    scaleButtons(1, pauseButtons);
 
     currentSong = {
         audio: audio,
@@ -32,8 +21,16 @@ function play(path) {
 
 function pause() {
     currentSong.audio.pause();
-    scalePlayButtons(1);
+
+    var playButtons = document.getElementsByClassName('btn play');
+    var pauseButtons = document.getElementsByClassName('btn pause');
+    scaleButtons(1, playButtons);
+    scaleButtons(0, pauseButtons);
 }
+
+//remove pause button
+var pauseButtons = document.getElementsByClassName('btn pause');
+scaleButtons(0, pauseButtons);
 
 //get files in playlist
 const PATH = './playlist/';

@@ -34,7 +34,7 @@ body {
 }
 
 .center {
-    margin: 0 auto;
+
 }
 
 .page {
@@ -58,6 +58,14 @@ body {
     border: none;
     cursor: pointer;
     border-radius: 4px;
+}
+
+.convert {
+
+}
+
+.pause {
+
 }
 
 .play {

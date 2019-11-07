@@ -40,3 +40,20 @@ function changePage(destination) {
             })
     });
 }
+
+function scaleButtons(scale, buttons) {
+    const SPEED = 200;
+    var animation = anime.timeline({
+        easing: 'easeOutExpo',
+        duration: buttons.length * SPEED
+    })
+    for (var i = 0; i < buttons.length; i++) {
+        animation.add({
+            targets: buttons[i],
+            scale: scale,
+            duration: SPEED
+        }, i * SPEED);
+    }
+}
+
+module.exports = { scaleButtons };
