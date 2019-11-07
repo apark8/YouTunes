@@ -14,14 +14,14 @@ function changePage(destination) {
         })
         .add({
             targets: 'div.sidenav',
-            translateX: (window.innerWidth - document.getElementsByClassName('sidenav')[0].offsetWidth) / 2,
-            scaleX: window.innerWidth / document.getElementsByClassName('sidenav')[0].offsetWidth,
+            translateX: (window.innerWidth - document.getElementById('mainnav').offsetWidth) / 2,
+            scaleX: window.innerWidth / document.getElementById('mainnav').offsetWidth,
             duration: 750
         })
 
     //once completed, go back to original size and fade in words
     animation.finished.then(() => {
-        document.getElementsByClassName('page')[0].src = destination
+        document.getElementById('mainpage').src = destination
         var animation = anime.timeline({
             easing: 'easeOutExpo',
             duration: 1000

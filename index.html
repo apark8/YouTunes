@@ -7,14 +7,14 @@
 </head>
 
 <body>
-    <script src="animations.js"></script>
-
-    <div class="sidenav">
+    <div class="sidenav" id="mainnav">
         <a onclick="changePage('help.html')">Help</a>
         <a onclick="changePage('playlist.html')">Playlist</a>
         <a onclick="changePage('converter.html')">Converter</a>
     </div>
 
-    <iframe class="page" src="converter.html"></iframe>
+    <iframe class="page" src="converter.html" id="mainpage"></iframe>
+
+    <script src="animations.js"></script>
 </body>
 </html>
