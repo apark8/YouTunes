@@ -2,12 +2,10 @@ const ytdl = parent.require('ytdl-core');
 const fs = parent.require('fs');
 
 function convert(url) {
-    console.log(url);
-    let stream = ytdl(url, filter = 'audioonly').pipe(fs.createWriteStream('./test/test.mp3'));
-
-    stream
-        .on('progress', (chunkLength, downloaded, total) => {
-            let percent = Math.floor((downloaded / total) * 100);
-            console.log("Progress:", percent);
-        });
+    const PATH = './playlist/';
+    var promise = ytdl.getBasicInfo(url);
+    promise.then((info) => {
+        var filename = PATH + info.title + '.mp3';
+        ytdl(url, filter = 'audioonly').pipe(fs.createWriteStream(filename));
+    });
 }
