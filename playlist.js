@@ -3,7 +3,7 @@ const fs = parent.require('fs');
 
 function movePlayButton() {
     const SPEED = 300;
-    playButtons = document.getElementsByClassName('playbtn');
+    playButtons = document.getElementsByClassName('btn play');
     var animation = anime.timeline({
         easing: 'easeOutExpo',
         duration: playButtons.length * SPEED
@@ -19,8 +19,8 @@ function movePlayButton() {
 
 function play(path) {
     var audio = new Audio(path);
-    movePlayButton();
     audio.play();
+    movePlayButton();
 }
 
 //get files in playlist
@@ -33,6 +33,6 @@ for (var i = 0; i < files.length; i++) {
     var row = table.insertRow(i);
     var playbtn = row.insertCell(0);
     var song = row.insertCell(1);
-    playbtn.innerHTML = '<button class="playbtn" onclick="play(\'' + PATH + files[i] + '\')"></button>';
+    playbtn.innerHTML = '<button class="btn play" onclick="play(\'' + PATH + files[i] + '\')"></button>';
     song.innerHTML = files[i];
 }

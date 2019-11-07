@@ -37,11 +37,26 @@ body {
     border: none;
 }
 
-.playbtn {
+.input {
+    border: none;
     height: 25px;
-    width: 25px;
+    width: 250px;
+}
+
+.btn {
     background-color: rgb(255, 118, 118);
+    color: rgb(255, 255, 255);
     border: none;
     cursor: pointer;
+}
+
+.convert {
+    height: 25px;
+    width: 75px;
+}
+
+.play {
+    height: 20px;
+    width: 20px;
     border-radius: 50%;
 }
