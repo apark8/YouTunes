@@ -21,6 +21,7 @@ body {
     font-size: 20px;
     color: rgb(255, 118, 118);
     display: block;
+    cursor: pointer;
     
 }
 
@@ -34,4 +35,13 @@ body {
     position: fixed;
     padding: 0px 0px 0px 130px;
     border: none;
+}
+
+.playbtn {
+    height: 25px;
+    width: 25px;
+    background-color: rgb(255, 118, 118);
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
 }
