@@ -1,40 +1,80 @@
 const anime = parent.require('animejs');
 const fs = parent.require('fs');
-const { scaleButtons } = parent.require('./animations.js');
+const { scaleButton, slideSong, rippleSongs } = parent.require('./animations.js');
 
-let currentSong = null;
+//initialize globals
+const PATH = './playlist/';
+let files = fs.readdirSync(PATH);
+let currentSong = {};
 
-function play(path) {
-    var audio = new Audio(path);
+function next() {
+    //stop current song
+    var songs = document.getElementsByClassName('song');
+    currentSong.audio.pause();
+    slideSong(-60, 0.25, songs[currentSong.index], 0);
+
+    //if no song next, start from first song in playlist
+    if (currentSong.index == files.length - 1)
+        currentSong.index = 0;
+    else
+        currentSong.index++;
+
+    //change to next song and play
+    var audio = new Audio(PATH + files[currentSong.index]);
+    audio.play();
+    currentSong.audio = audio;
+    slideSong(0, 1, songs[currentSong.index], 0);
+}
+
+function play(index) {
+    //if new song, play from beginning
+    if (!currentSong || index != currentSong.index) {
+        var path = PATH + files[index];
+        var audio = new Audio(path);
+    }
+    //otherwise, continue from before
+    else 
+        var audio = currentSong.audio;
+
     audio.play();
 
-    var playButtons = document.getElementsByClassName('btn play');
-    var pauseButton = document.getElementsByClassName('btn pause');
-    scaleButtons(0, playButtons);
-    scaleButtons(1, pauseButtons);
+    //store data about current song
+    currentSong.audio = audio;
+    currentSong.index = index;
 
-    currentSong = {
-        audio: audio,
-        path: path
+    //animations
+    var playButtons = document.getElementsByClassName('btn play');
+    var pauseButton = document.getElementById('pause');
+    var nextButton = document.getElementById('next');
+    var songs = document.getElementsByClassName('song');
+    scaleButton(1, pauseButton, 0);
+    scaleButton(1, nextButton, 0);
+    rippleSongs(0, playButtons, -60, 0.25, 0, 1, index, songs);
+
+    //when song ends, go to next
+    audio.onended = () => {
+        next();
     }
 }
 
 function pause() {
     currentSong.audio.pause();
 
+    //animations
     var playButtons = document.getElementsByClassName('btn play');
-    var pauseButtons = document.getElementsByClassName('btn pause');
-    scaleButtons(1, playButtons);
-    scaleButtons(0, pauseButtons);
+    var pauseButton = document.getElementById('pause');
+    var nextButton = document.getElementById('next');
+    var songs = document.getElementsByClassName('song');
+    scaleButton(0, pauseButton, 0);
+    scaleButton(0, nextButton, 0);
+    rippleSongs(1, playButtons, 0, 1, 0, 1, currentSong.index, songs);
 }
 
-//remove pause button
-var pauseButtons = document.getElementsByClassName('btn pause');
-scaleButtons(0, pauseButtons);
-
-//get files in playlist
-const PATH = './playlist/';
-var files = fs.readdirSync(PATH);
+//remove pause/next buttons until music is played
+var pauseButton = document.getElementById('pause');
+var nextButton = document.getElementById('next');
+scaleButton(0, pauseButton, 0);
+scaleButton(0, nextButton, 0);
 
 //create playlist
 var table = document.getElementById('playlist');
@@ -42,6 +82,6 @@ for (var i = 0; i < files.length; i++) {
     var row = table.insertRow(i);
     var playbtn = row.insertCell(0);
     var song = row.insertCell(1);
-    playbtn.innerHTML = '<button class="btn play" onclick="play(\'' + PATH + files[i] + '\')"></button>';
-    song.innerHTML = files[i];
+    playbtn.innerHTML = '<button class="btn play" onclick="play(' + i + ')"></button>';
+    song.innerHTML = '<div class="song">' + files[i] + '</div>';
 }

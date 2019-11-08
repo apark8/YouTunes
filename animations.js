@@ -1,5 +1,7 @@
 const anime = require('animejs');
 
+const SPEED = 200;
+
 function changePage(destination) {
     //fade out words and then stretch sidenav to fullscreen
     var animation = anime.timeline({
@@ -41,19 +43,39 @@ function changePage(destination) {
     });
 }
 
-function scaleButtons(scale, buttons) {
-    const SPEED = 200;
-    var animation = anime.timeline({
-        easing: 'easeOutExpo',
-        duration: buttons.length * SPEED
-    })
-    for (var i = 0; i < buttons.length; i++) {
-        animation.add({
-            targets: buttons[i],
-            scale: scale,
-            duration: SPEED
-        }, i * SPEED);
+function scaleButton(scale, button, delay) {
+    anime({
+        targets: button,
+        scale: scale,
+        delay: delay,
+        duration: SPEED
+    });
+}
+
+function slideSong(translation, opacity, song, delay) {
+    anime({
+        targets: song,
+        translateX: translation,
+        opacity: opacity,
+        delay: delay,
+        duration: SPEED
+    });
+}
+
+function rippleSongs(scale, buttons, translation, opacity, indexTranslation, indexOpacity, index, songs) {
+    //start from index and ripple from both sides
+    scaleButton(scale, buttons[index], 0);
+    slideSong(indexTranslation, indexOpacity, songs[index], 0);
+    //top side ripple
+    for (var i = index - 1; i >= 0; i--) {
+        scaleButton(scale, buttons[i], (index - i) * SPEED);
+        slideSong(translation, opacity, songs[i], (index - i) * SPEED);
+    }
+    //bottom side ripple
+    for (var i = index + 1; i < songs.length; i++) {
+        scaleButton(scale, buttons[i], (i - index) * SPEED);
+        slideSong(translation, opacity, songs[i], (i - index) * SPEED);
     }
 }
 
-module.exports = { scaleButtons };
+module.exports = { scaleButton, slideSong, rippleSongs };
