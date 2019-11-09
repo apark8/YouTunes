@@ -11,7 +11,7 @@ function next() {
     //stop current song
     var songs = document.getElementsByClassName('song');
     currentSong.audio.pause();
-    slideSong(-60, 0.25, songs[currentSong.index], 0);
+    slideSong(-30, 0.25, songs[currentSong.index], 0);
 
     //if no song next, start from first song in playlist
     if (currentSong.index == files.length - 1)
@@ -20,6 +20,25 @@ function next() {
         currentSong.index++;
 
     //change to next song and play
+    var audio = new Audio(PATH + files[currentSong.index]);
+    audio.play();
+    currentSong.audio = audio;
+    slideSong(0, 1, songs[currentSong.index], 0);
+}
+
+function previous() {
+    //stop current song
+    var songs = document.getElementsByClassName('song');
+    currentSong.audio.pause();
+    slideSong(-30, 0.25, songs[currentSong.index], 0);
+
+    //if no song previous, start from last song in playlist
+    if (currentSong.index == 0)
+        currentSong.index = files.length - 1;
+    else
+        currentSong.index--;
+
+    //change to previous song and play
     var audio = new Audio(PATH + files[currentSong.index]);
     audio.play();
     currentSong.audio = audio;
@@ -46,10 +65,12 @@ function play(index) {
     var playButtons = document.getElementsByClassName('btn play');
     var pauseButton = document.getElementById('pause');
     var nextButton = document.getElementById('next');
+    var prevButton = document.getElementById('previous');
     var songs = document.getElementsByClassName('song');
     scaleButton(1, pauseButton, 0);
     scaleButton(1, nextButton, 0);
-    rippleSongs(0, playButtons, -60, 0.25, 0, 1, index, songs);
+    scaleButton(1, prevButton, 0);
+    rippleSongs(0, playButtons, -30, 0.25, 0, 1, index, songs);
 
     //when song ends, go to next
     audio.onended = () => {
@@ -64,17 +85,21 @@ function pause() {
     var playButtons = document.getElementsByClassName('btn play');
     var pauseButton = document.getElementById('pause');
     var nextButton = document.getElementById('next');
+    var prevButton = document.getElementById('previous');
     var songs = document.getElementsByClassName('song');
     scaleButton(0, pauseButton, 0);
     scaleButton(0, nextButton, 0);
+    scaleButton(0, prevButton, 0);
     rippleSongs(1, playButtons, 0, 1, 0, 1, currentSong.index, songs);
 }
 
 //remove pause/next buttons until music is played
 var pauseButton = document.getElementById('pause');
 var nextButton = document.getElementById('next');
+var prevButton = document.getElementById('previous');
 scaleButton(0, pauseButton, 0);
 scaleButton(0, nextButton, 0);
+scaleButton(0, prevButton, 0);
 
 //create playlist
 var table = document.getElementById('playlist');
